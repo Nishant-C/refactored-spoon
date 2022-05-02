@@ -1,0 +1,38 @@
+<div class="share-detail-view">
+    <div class="share-dv-chart" *ngIf="stockName != ''">
+        <h1 style="margin-bottom: 5rem;">{{titleText}}</h1> 
+       
+        <div style="display: flex; flex-direction: column;" >
+            <div>
+                <mat-button-toggle-group name="filter" (change)="onFilterChange($event.value)" value="current">
+                    <mat-button-toggle value="current">Current</mat-button-toggle>
+                    <mat-button-toggle value="month">30 Days</mat-button-toggle>
+                    <mat-button-toggle value="year">12 Months</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        
+            <ngx-charts-area-chart-stacked 
+                [view]="view"
+                [legend]="legend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [timeline]="timeline"
+                [yScaleMax]="yScaleMax"
+                [yScaleMin]="yScaleMin" 
+                [results]="multi"
+                [timeline]="false"> 
+            </ngx-charts-area-chart-stacked>
+        <!-- </div> -->
+        
+    </div> 
+
+    <div class="center" *ngIf="stockName == undefined">
+        <h1>Select a share</h1>
+    </div>
+    
+</div>
+
