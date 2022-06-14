@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -19,57 +20,7 @@ export class SideListComponent implements OnInit {
   listOfShares: string[] = []
   shareSearchInput: string = "";
   ngOnInit(): void {
-    if(localStorage.getItem("stock-list") != null)
-      this.listOfShares = JSON.parse( localStorage.getItem("stock-list") || '{}');
-  }
-
-  onAddBtnClick(value: string) {
-    if(value.replaceAll(" ", "") == ""){
-      this._snackBar.open("Share name is empty", "Done")
-      return;
-    }
-
-    const index = this.listOfShares.indexOf(value, 0);
-    if(index != -1){
-      this._snackBar.open("Stock already added", "Done")
-      return;
-
-    }
-
-    // if(this.searchForCompany(value) == false){
-    //   this._snackBar.open("No stock company found! Enter a valid stock symbol.", "Done")
-    //   return;
-    // }
-
-      this.searchForCompany(value)
-
-
-  }
-
-  searchForCompany(name: string){
-  
-      var urlSearch = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords='+ name.replaceAll(" ","") +'&apikey=UFUGQQC467MHKOH1'
-      this.http.get<any>(urlSearch).subscribe(responseData => {
-        if(responseData["bestMatches"][0]){
-          var firstMatch = responseData["bestMatches"][0]["1. symbol"]
-          if(firstMatch.toLowerCase() == name.toLowerCase()){
-            this.listOfShares.push(name);
-            console.log(JSON.stringify(this.listOfShares));
-            localStorage.setItem("stock-list", JSON.stringify(this.listOfShares));
-
-            this.searchInput   = "";
-            return
-          }
-            
-        }
-
-        this._snackBar.open("No stock company found! Enter a valid stock symbol.", "Done")
-          
-        
-      });
-    
-
-
+    this.loadLocalStorage();
   }
 
   onListItemDelete($event: any){
@@ -98,4 +49,11 @@ export class SideListComponent implements OnInit {
     return false
   }
 
+  loadLocalStorage() {    
+    if(localStorage.getItem("stock-list") != null){
+      var localStorJSON = JSON.parse( localStorage.getItem("stock-list") || '{}');
+      var sharesMap = new Map(Object.entries(localStorJSON));
+      this.listOfShares = Array.from(sharesMap.keys());
+    }
+  }
 }

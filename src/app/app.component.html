@@ -1,14 +1,16 @@
 
 <title>Stock Visualizer</title>
-<div>
+<!-- <div>
   <mat-sidenav-container fullscreen>
     <mat-sidenav mode="side" opened fixedBottomGap="10" fixedInViewport="true">
-      <!-- <button mat-fab>
-        3 dots
-      </button> -->
-
       <app-side-list (appStockSelected)="stockSelected($event)" ></app-side-list>
     </mat-sidenav>
     <app-detail-view [events]="shareChangedToDetail.asObservable()"></app-detail-view>
   </mat-sidenav-container>
+</div> -->
+
+<div class="container">
+  <app-side-list class="side-list-parent custom-scroll" (appStockSelected)="stockSelected($event)" ></app-side-list>
+  <app-detail-view class="detail-view-parent" [events]="shareChangedToDetail.asObservable()"></app-detail-view>
+  
 </div>

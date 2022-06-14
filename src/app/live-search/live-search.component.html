@@ -1,0 +1,30 @@
+<!-- <form autocomplete="off" class="sl-search-form">
+    <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input autocomplete="off" matInput placeholder="Ex. AAPL" id="stock-side-search" 
+            #searchValue [(ngModel)]="searchInput" name="searchInput"
+            (keydown.enter)="searchKey(searchValue.value)">
+    </mat-form-field>      
+
+
+</form>
+
+<div class="search-result-container custom-scroll">
+    <div class="search-result-item" *ngFor="let match of suggestions" on-click="addStock(match)">
+        <div class="search-result-item-token">{{match?.["1. symbol"]!}}</div>
+        <div class="search-result-item-name">{{match?.["2. name"]!}}</div>
+    </div>
+</div>    -->
+
+<form class="sl-search-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" 
+      (keydown.enter)="searchKey(searchValue.value)" #searchValue [(ngModel)]="searchInput" name="searchInput">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredSuggestions | async" [value]="suggestions" on-click="addStock(option)">
+          {{option["2. name"]}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
