@@ -1,10 +1,12 @@
-<div class="sideListDiv share-sl-Padding">
+<div class="side-panel custom-scroll">
 
-    <h1> Share List</h1>
+    <h1 class="sp-heading"> Stock List</h1>
+
+    <app-live-search></app-live-search>
     <mat-selection-list #share [multiple]="false" (selectionChange)="shareSelectionChange($event)" style="padding: 0;">
         <mat-list-option *ngFor="let share of listOfShares" [value]="share">
           <div class="share-sl-list-row">
-            {{share}}
+            <div> {{share}} </div>
             <button mat-button color="primary" class="share-sl-list-row-delete" (click)="onListItemDelete($event)">
               <mat-icon>delete</mat-icon>
             </button>
@@ -14,13 +16,15 @@
     
     </mat-selection-list>
     
-    <form class="sl-search-form">
-        <mat-form-field class="example-full-width" appearance="fill">
+    <!-- <form class="sl-search-form">
+        <mat-form-field appearance="fill">
           <mat-label>Enter ticker symbol</mat-label>
-          <input matInput placeholder="Ex. AAPL" id="stock-side-search" #searchValue [(ngModel)]="searchInput" name="searchInput">
+          <input matInput placeholder="Ex. AAPL" id="stock-side-search" 
+            #searchValue [(ngModel)]="searchInput" name="searchInput"
+            (keydown.enter)="onAddBtnClick(searchValue.value)">
+          
         </mat-form-field>      
-    </form>
-    <button mat-raised-button class="addStockBtn" (click)="onAddBtnClick(searchValue.value)">Add</button>
-
+    </form> -->
+    
 </div>
   

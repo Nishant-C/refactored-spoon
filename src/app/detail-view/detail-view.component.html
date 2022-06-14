@@ -1,4 +1,8 @@
 <div class="share-detail-view">
+    <div class="no-text" *ngIf="stockName == ''">
+        <h1>Nothing to show!!</h1>
+    </div>
+
     <div class="share-dv-chart" *ngIf="stockName != ''">
         <h1 style="margin-bottom: 5rem;">{{titleText}}</h1> 
        
@@ -12,7 +16,6 @@
             </div>
         
             <ngx-charts-area-chart-stacked 
-                [view]="view"
                 [legend]="legend"
                 [showXAxisLabel]="showXAxisLabel"
                 [showYAxisLabel]="showYAxisLabel"
